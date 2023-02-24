@@ -17,7 +17,7 @@ module Api
     # POST /sleep_trackers
     def create
       @sleep_tracker = SleepTracker.new(sleep_tracker_params)
-
+      @sleep_tracker.clock_in = Time.zone.now # take time by user timezone
       if @sleep_tracker.save
         render json: @sleep_tracker, status: :created, location: @sleep_tracker
       else
@@ -47,7 +47,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def sleep_tracker_params
-      params.require(:sleep_tracker).permit(:user_id, :clock_in, :sleep_type)
+      params.require(:sleep_tracker).permit(:user_id, :sleep_type)
     end
   end
 end
