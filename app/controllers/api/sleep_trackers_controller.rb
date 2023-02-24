@@ -19,9 +19,9 @@ module Api
       @sleep_tracker = SleepTracker.new(sleep_tracker_params)
       @sleep_tracker.clock_in = Time.zone.now # take time by user timezone
       if @sleep_tracker.save
-        render json: @sleep_tracker, status: :created, location: @sleep_tracker
+        responder(:ok, 'Success create sleep tracker', SleepTrackerSerializer.new(@sleep_tracker))
       else
-        render json: @sleep_tracker.errors, status: :unprocessable_entity
+        responder(:unprocessable_entity, @sleep_tracker.errors.full_messages.to_sentence, errors: @sleep_tracker.errors)
       end
     end
 
