@@ -5,7 +5,7 @@ module Api
     # GET /sleep_trackers
     def index
       @sleep_trackers = SleepTracker.desc
-
+      @sleep_trackers = @sleep_trackers.where(user_id: params[:user_id]) if params[:user_id]
       responder(:ok, 'OK', SleepTrackerSerializer.new(@sleep_trackers))
     end
 
