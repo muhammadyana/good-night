@@ -3,7 +3,7 @@
 # Table name: sleep_trackers
 #
 #  id         :integer          not null, primary key
-#  clock_in   :datetime
+#  clock_in   :datetime         not null
 #  sleep_type :string           default("sleep")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

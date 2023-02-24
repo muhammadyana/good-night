@@ -3,7 +3,7 @@
 # Table name: sleep_trackers
 #
 #  id         :integer          not null, primary key
-#  clock_in   :datetime
+#  clock_in   :datetime         not null
 #  sleep_type :string           default("sleep")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -31,5 +31,6 @@ class SleepTracker < ApplicationRecord
   # Additional config (i.e. accepts_nested_attributes_for etc...) .............
   # Auditeds ..................................................................
   # Enums .....................................................................
+  enum sleep_type: { sleep: 'sleep', wake_up: 'wake_up' }, _prefix: true # we can use method SleepTracker.sleep_type_sleep or SleepTracker.sleep_type_wake_up to get related data
   # Delegate ..................................................................
 end
