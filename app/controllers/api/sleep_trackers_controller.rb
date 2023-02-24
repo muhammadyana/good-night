@@ -28,9 +28,9 @@ module Api
     # PATCH/PUT /sleep_trackers/1
     def update
       if @sleep_tracker.update(sleep_tracker_params)
-        render json: @sleep_tracker
+        responder(:ok, 'Data updated', SleepTrackerSerializer.new(@sleep_tracker))
       else
-        render json: @sleep_tracker.errors, status: :unprocessable_entity
+        responder(:unprocessable_entity, @sleep_tracker.errors.full_messages.to_sentence, errors: @sleep_tracker.errors)
       end
     end
 
