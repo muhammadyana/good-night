@@ -6,12 +6,12 @@ module Api
     def index
       @sleep_trackers = SleepTracker.desc
 
-      render json: @sleep_trackers
+      responder(:ok, 'OK', SleepTrackerSerializer.new(@sleep_trackers))
     end
 
     # GET /sleep_trackers/1
     def show
-      responder(:ok, 'OK', data: @sleep_tracker)
+      responder(:ok, 'OK', SleepTrackerSerializer.new(@sleep_tracker))
     end
 
     # POST /sleep_trackers
