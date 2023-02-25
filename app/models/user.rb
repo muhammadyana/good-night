@@ -28,13 +28,13 @@ class User < ApplicationRecord
   # Delegate ..................................................................
 
   def clock_in
-    return false if sleep_records.active.exists?
+    return false if sleep_trackers.active.exists?
 
-    sleep_records.create(start_time: Time.zone.now, sleep_type: 'sleep')
+    sleep_trackers.create(start_time: Time.zone.now, sleep_type: 'sleep')
   end
 
   def clock_out
-    sleep_record = sleep_records.active.first
+    sleep_record = sleep_trackers.active.first
 
     return false unless sleep_record
 
