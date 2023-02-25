@@ -1,6 +1,6 @@
 module Api
   class UsersController < BaseController
-    before_action :set_user, only: %i[follow unfollow]
+    before_action :set_user
 
     def follow
       @current_user.follow(@user)
