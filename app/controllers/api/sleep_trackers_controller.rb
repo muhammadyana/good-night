@@ -40,6 +40,7 @@ module Api
     end
 
     private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_sleep_tracker
       @sleep_tracker = SleepTracker.find(params[:id])
