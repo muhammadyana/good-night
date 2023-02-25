@@ -12,6 +12,10 @@ module Api
       responder(:ok, "You're now unfollow #{@user.name}")
     end
 
+    def sleep_records
+
+    end
+
     private
 
     def set_user
