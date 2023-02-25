@@ -1,13 +1,21 @@
 module Api
   class BaseController < ApplicationController
     include ApiHelper
+    include ActionController::Helpers
 
     before_action :authenticate_user!
 
-    def authenticate_user!
-      return responder(:unauthorized, 'Please provide user_id in headers') unless request.headers['User-Id']
+    helper_method :current_user
 
-      @current_user ||= User.find(request.headers['User-Id'])
+    private
+
+    def authenticate_user!
+      @current_user = User.find_by(id: request.headers['User-Id'])
+      return responder(:unauthorized, 'Invalid user') unless @current_user
+    end
+
+    def current_user
+      @current_user
     end
   end
 end
