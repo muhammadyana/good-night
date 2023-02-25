@@ -4,6 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  clock_in   :datetime         not null
+#  clock_out  :datetime
 #  sleep_type :string           default("sleep")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
