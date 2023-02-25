@@ -35,4 +35,8 @@ class SleepTracker < ApplicationRecord
   # Enums .....................................................................
   enum sleep_type: { sleep: 'sleep', wake_up: 'wake_up' }, _prefix: true # we can use method SleepTracker.sleep_type_sleep or SleepTracker.sleep_type_wake_up to get related data
   # Delegate ..................................................................
+
+  def duration
+    (clock_out - clock_in).to_i / 3600.0
+  end
 end
