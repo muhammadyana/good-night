@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_24_154654) do
+ActiveRecord::Schema.define(version: 2023_02_25_045358) do
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "followed_id", null: false
+    t.integer "follower_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_follows_on_followed_id"
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
 
   create_table "sleep_trackers", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -27,5 +36,7 @@ ActiveRecord::Schema.define(version: 2023_02_24_154654) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "follows", "followeds"
+  add_foreign_key "follows", "followers"
   add_foreign_key "sleep_trackers", "users"
 end
