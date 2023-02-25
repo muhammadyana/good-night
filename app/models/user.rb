@@ -27,6 +27,20 @@ class User < ApplicationRecord
   # Enums .....................................................................
   # Delegate ..................................................................
 
+  def clock_in
+    return false if sleep_trackers.active.exists?
+
+    sleep_trackers.create(clock_in: Time.zone.now, sleep_type: 'sleep')
+  end
+
+  def clock_out
+    sleep_record = sleep_trackers.active.first
+
+    return false unless sleep_record
+
+    sleep_record.update(clock_out: Time.zone.now, sleep_type: 'wake_up')
+  end
+
   def following?(user)
     followings.include? user
   end
