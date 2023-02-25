@@ -48,7 +48,7 @@ module Api
     def clock_out
       sleep_record = current_user.sleep_trackers.active.first
 
-      return responder(:unprocessable_entity, "Sleep tracker has been clocked out in #{sleep_record.clock_out.to_s(:stamp)}") if sleep_record.clock_out?
+      return responder(:unprocessable_entity, "Sleep tracker has been clocked out, your latest record clocked out in #{current_user.sleep_trackers.last.clock_out&.to_s(:stamp)}") unless sleep_record
 
       if sleep_record
         sleep_record.update(clock_out: Time.zone.now)
