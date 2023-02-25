@@ -14,6 +14,10 @@ class User < ApplicationRecord
   # Fields (If use mongo) .....................................................
   # Relationships .............................................................
   has_many :sleep_trackers, dependent: :destroy
+  has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
+  has_many :followings, through: :followed_users, source: :followed
+  has_many :following_users, foreign_key: :followed_id, class_name: 'Follow'
+  has_many :followers, through: :following_users
   # Validations ...............................................................
   # Callbacks .................................................................
   # Scopes ....................................................................
@@ -22,4 +26,20 @@ class User < ApplicationRecord
   # Auditeds ..................................................................
   # Enums .....................................................................
   # Delegate ..................................................................
+
+  def following?(user)
+    followings.include? user
+  end
+
+  def followback?(user)
+    user.followers.include? self
+  end
+
+  def follow(user)
+    followings << user
+  end
+
+  def unfollow(user)
+    followed_users.find_by(followed_id: user.id).destroy
+  end
 end

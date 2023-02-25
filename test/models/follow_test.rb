@@ -13,11 +13,6 @@
 #  index_follows_on_followed_id  (followed_id)
 #  index_follows_on_follower_id  (follower_id)
 #
-# Foreign Keys
-#
-#  followed_id  (followed_id => followeds.id)
-#  follower_id  (follower_id => followers.id)
-#
 require "test_helper"
 
 class FollowTest < ActiveSupport::TestCase
