@@ -14,31 +14,6 @@ module Api
       responder(:ok, 'OK', SleepTrackerSerializer.new(@sleep_tracker))
     end
 
-    # POST /sleep_trackers
-    def create
-      @sleep_tracker = SleepTracker.new(sleep_tracker_params)
-      @sleep_tracker.clock_in = Time.zone.now # take time by user timezone
-      if @sleep_tracker.save
-        responder(:ok, 'Success create sleep tracker', SleepTrackerSerializer.new(@sleep_tracker))
-      else
-        responder(:unprocessable_entity, @sleep_tracker.errors.full_messages.to_sentence, errors: @sleep_tracker.errors)
-      end
-    end
-
-    # PATCH/PUT /sleep_trackers/1
-    def update
-      if @sleep_tracker.update(sleep_tracker_params)
-        responder(:ok, 'Data updated', SleepTrackerSerializer.new(@sleep_tracker))
-      else
-        responder(:unprocessable_entity, @sleep_tracker.errors.full_messages.to_sentence, errors: @sleep_tracker.errors)
-      end
-    end
-
-    # DELETE /sleep_trackers/1
-    def destroy
-      @sleep_tracker.destroy
-    end
-
     def clock_in
       current_user.clock_in
       sleep_record = current_user.sleep_trackers.active.first
@@ -67,7 +42,7 @@ module Api
 
     # Only allow a list of trusted parameters through.
     def sleep_tracker_params
-      params.require(:sleep_tracker).permit(:user_id, :sleep_type)
+      params.require(:sleep_tracker).permit(:user_id)
     end
   end
 end
