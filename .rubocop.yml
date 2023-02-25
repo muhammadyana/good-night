@@ -124,3 +124,7 @@ Bundler/OrderedGems:
 
 Style/OpenStructUse:
   Enabled: false
+
+Metrics/AbcSize:
+  Max: 100
+
