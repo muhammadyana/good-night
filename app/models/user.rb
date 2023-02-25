@@ -30,7 +30,7 @@ class User < ApplicationRecord
   def clock_in
     return false if sleep_trackers.active.exists?
 
-    sleep_trackers.create(clock_in: Time.zone.now, sleep_type: 'sleep')
+    sleep_trackers.create(clock_in: Time.zone.now)
   end
 
   def clock_out
@@ -38,7 +38,7 @@ class User < ApplicationRecord
 
     return false unless sleep_record
 
-    sleep_record.update(clock_out: Time.zone.now, sleep_type: 'wake_up')
+    sleep_record.update(clock_out: Time.zone.now)
   end
 
   def following?(user)
