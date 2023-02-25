@@ -19,5 +19,5 @@
 #  user_id  (user_id => users.id)
 #
 class SleepTrackerSerializer < ApplicationSerializer
-  attributes :id, :user_id, :sleep_type, :clock_in, :created_at, :updated_at
+  attributes :id, :user_id, :sleep_type, :clock_in, :clock_out, :duration, :created_at, :updated_at
 end

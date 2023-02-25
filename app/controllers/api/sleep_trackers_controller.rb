@@ -39,6 +39,12 @@ module Api
       @sleep_tracker.destroy
     end
 
+    def clock_in
+      current_user.clock_in
+      sleep_record = current_user.sleep_trackers.active.first
+      responder(:ok, "Success clock in in #{sleep_record.clock_in.to_s(:stamp)}", SleepTrackerSerializer.new(sleep_record))
+    end
+
     private
 
     # Use callbacks to share common setup or constraints between actions.
