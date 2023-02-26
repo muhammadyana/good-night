@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  clock_in   :datetime         not null
 #  clock_out  :datetime
+#  duration   :integer          default(0)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer          not null
