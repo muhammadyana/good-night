@@ -13,7 +13,8 @@ module Api
     end
 
     def sleep_records
-
+      records = current_user.following_sleep_records_past_week
+      responder(:ok, 'OK', data: records)
     end
 
     private
