@@ -62,10 +62,10 @@ class User < ApplicationRecord
   def following_sleep_records_past_week
     following_ids = following_users.pluck(:followed_id)
 
-    SleepTracker.where(user_id: following_ids)
-      .where('clock_out >= ?', 1.week.ago.beginning_of_day)
-      .where.not(clock_out: nil)
-      .select('sleep_trackers.*, (sleep_trackers.clock_out - sleep_trackers.clock_in) as sleep_length')
-      .order('sleep_length DESC')
+    SleepTracker.where(user_id: following_ids).
+      where('clock_out >= ?', 1.week.ago.beginning_of_day).
+      where.not(clock_out: nil).
+      select('sleep_trackers.*, (sleep_trackers.clock_out - sleep_trackers.clock_in) as sleep_length').
+      order('sleep_length DESC')
   end
 end
