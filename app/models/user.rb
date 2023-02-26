@@ -14,10 +14,10 @@ class User < ApplicationRecord
   # Fields (If use mongo) .....................................................
   # Relationships .............................................................
   has_many :sleep_trackers, dependent: :destroy
-  has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
-  has_many :followings, through: :followed_users, source: :followed
-  has_many :following_users, foreign_key: :followed_id, class_name: 'Follow'
-  has_many :followers, through: :following_users
+  has_many :following_users, foreign_key: :follower_id, class_name: 'Follow'
+  has_many :followings, through: :following_users, source: :followed
+  has_many :followed_users, foreign_key: :followed_id, class_name: 'Follow'
+  has_many :followers, through: :followed_users
   # Validations ...............................................................
   # Callbacks .................................................................
   # Scopes ....................................................................
@@ -57,5 +57,15 @@ class User < ApplicationRecord
 
   def unfollow(user)
     followed_users.find_by(followed_id: user.id)&.destroy
+  end
+
+  def following_sleep_records_past_week
+    following_ids = following_users.pluck(:followed_id)
+
+    SleepTracker.where(user_id: following_ids).
+      where('clock_out >= ?', 1.week.ago.beginning_of_day).
+      where.not(clock_out: nil).
+      select('sleep_trackers.*, (sleep_trackers.clock_out - sleep_trackers.clock_in) as sleep_length').
+      order('sleep_length DESC')
   end
 end

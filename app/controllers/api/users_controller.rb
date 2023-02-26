@@ -1,6 +1,6 @@
 module Api
   class UsersController < BaseController
-    before_action :set_user, only: %i[follow unfollow]
+    before_action :set_user
 
     def follow
       @current_user.follow(@user)
@@ -10,6 +10,11 @@ module Api
     def unfollow
       @current_user.unfollow(@user)
       responder(:ok, "You're now unfollow #{@user.name}")
+    end
+
+    def sleep_records
+      records = current_user.following_sleep_records_past_week
+      responder(:ok, 'OK', data: records)
     end
 
     private
