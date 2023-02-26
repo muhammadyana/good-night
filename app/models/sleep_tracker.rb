@@ -36,9 +36,9 @@ class SleepTracker < ApplicationRecord
   # Enums .....................................................................
   # Delegate ..................................................................
 
-  def duration
-    return 0 unless clock_out?
+  # def duration
+  #   return 0 unless clock_out?
 
-    (clock_out - clock_in).to_i / 3600.0
-  end
+  #   (clock_out - clock_in).to_i / 3600.0
+  # end
 end
