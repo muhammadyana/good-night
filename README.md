@@ -1,7 +1,9 @@
 ## Tripla Test
 ### Clone the repo
 Using github cli
-    gh repo clone muhammadyana/good-night
+```bash
+gh repo clone muhammadyana/good-night
+```
 
 ### Setup project
 
