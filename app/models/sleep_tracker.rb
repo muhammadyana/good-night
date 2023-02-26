@@ -5,6 +5,7 @@
 #  id         :integer          not null, primary key
 #  clock_in   :datetime         not null
 #  clock_out  :datetime
+#  duration   :integer          default(0)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer          not null
@@ -26,6 +27,7 @@ class SleepTracker < ApplicationRecord
   belongs_to :user
   # Validations ...............................................................
   # Callbacks .................................................................
+  after_save :update_duration, if: :saved_change_to_clock_out? # update duration if clock_out changed?
   # Scopes ....................................................................
   # Uploaders / active storage.................................................
   scope :active, -> { where.not(clock_in: nil).where(clock_out: nil) }
@@ -35,9 +37,13 @@ class SleepTracker < ApplicationRecord
   # Enums .....................................................................
   # Delegate ..................................................................
 
-  def duration
-    return 0 unless clock_out?
-
-    (clock_out - clock_in).to_i / 3600.0
+  def update_duration
+    self.update(duration: clock_out - clock_in)
   end
+
+  # def duration
+  #   return 0 unless clock_out?
+
+  #   (clock_out - clock_in).to_i / 3600.0
+  # end
 end
