@@ -10,7 +10,7 @@ gh repo clone muhammadyana/good-night
     cd good-night
     bin/setup
     rails server
- ### clock in and clokc out API
+ ### clock in and clock out API
 to **clock in** please make request POST to `http://localhost:3000/api/sleeps/clock_in` with headers `User-Id`
 Example request
 
